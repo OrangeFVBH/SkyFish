@@ -2,6 +2,8 @@ package com.example.skyfish
 
 import android.content.SharedPreferences
 import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.RectF
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -14,13 +16,12 @@ class MainActivity : AppCompatActivity() {
     private var score: Long = 0
     var inc: Long = 1
 
-    private lateinit var background: View
+    private lateinit var canva: View
     private lateinit var fish: View
     private lateinit var text_score: TextView
 
     private lateinit var shared: SharedPreferences
     private lateinit var sharedEditor: SharedPreferences.Editor
-    val canvas = Canvas()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,21 +37,19 @@ class MainActivity : AppCompatActivity() {
         sharedEditor = shared.edit()
         load()
 
-        background = findViewById(R.id.background)
         fish = findViewById(R.id.fish)
         text_score = findViewById(R.id.text_score)
 
-        background.draw(canvas)
     }
+
+
 
     private fun save(){
         sharedEditor.putLong("score", score)
-        sharedEditor.putLong("inc", inc)
         sharedEditor.commit()
     }
 
     private fun load(){
         score = shared.getLong("score", 0)
-        inc = shared.getLong("inc", 1)
     }
 }
