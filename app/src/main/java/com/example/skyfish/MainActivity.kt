@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         fish = findViewById(R.id.fish)
         text_score = findViewById(R.id.text_score)
 
+        //TODO:canva.setOnClickListener()
     }
 
 
@@ -52,4 +53,5 @@ class MainActivity : AppCompatActivity() {
     private fun load(){
         score = shared.getLong("score", 0)
     }
+
 }

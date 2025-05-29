@@ -3,6 +3,7 @@ package com.example.skyfish
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Picture
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
@@ -29,8 +30,9 @@ class GameView : View {
 
     }
 
+    private val rect = RectF(100f, 10f, 200f, 800f)
     private val paint = Paint()
-    private val rect = RectF(100f, 100f, 150f, 250f)
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
