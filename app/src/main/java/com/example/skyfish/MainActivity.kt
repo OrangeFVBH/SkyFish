@@ -53,5 +53,4 @@ class MainActivity : AppCompatActivity() {
     private fun load(){
         score = shared.getLong("score", 0)
     }
-
 }

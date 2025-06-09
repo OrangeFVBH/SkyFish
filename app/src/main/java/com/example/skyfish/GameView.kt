@@ -1,9 +1,10 @@
 package com.example.skyfish
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Picture
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
@@ -30,18 +31,24 @@ class GameView : View {
 
     }
 
-    private val rect = RectF(100f, 10f, 200f, 800f)
+    private val rect_1 = RectF(1670f, 700f, 1920f, 1080f)
+    private val rect_2 = RectF(1670f, 0f, 1920f, 400f)
     private val paint = Paint()
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         // Рисуем прямоугольник или что угодно
-        canvas.drawRect(rect, paint)
+        val let_1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.let_1);
+        canvas.drawBitmap(let_1, null, rect_1, paint)
+        val let_2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.let_2);
+        canvas.drawBitmap(let_2, null, rect_2, paint)
     }
 
     fun updateRect(newRect: RectF) {
-        rect.set(newRect)
+        rect_1.set(newRect)
+        rect_2.set(newRect)
         invalidate()
     }
 }
