@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     var inc: Long = 1
 
     private lateinit var canva: View
-    private lateinit var fish: View
     private lateinit var text_score: TextView
 
     private lateinit var shared: SharedPreferences
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         sharedEditor = shared.edit()
         load()
 
-        fish = findViewById(R.id.fish)
         text_score = findViewById(R.id.text_score)
 
         //TODO:canva.setOnClickListener()

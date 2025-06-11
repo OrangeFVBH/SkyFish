@@ -33,6 +33,7 @@ class GameView : View {
 
     private val rect_1 = RectF(1670f, 700f, 1920f, 1080f)
     private val rect_2 = RectF(1670f, 0f, 1920f, 400f)
+    private val rect_fish = RectF(40f, 500f, 240f, 640f)
     private val paint = Paint()
 
 
@@ -44,11 +45,14 @@ class GameView : View {
         canvas.drawBitmap(let_1, null, rect_1, paint)
         val let_2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.let_2);
         canvas.drawBitmap(let_2, null, rect_2, paint)
+        val fish = BitmapFactory.decodeResource(context.getResources(), R.drawable.fish);
+        canvas.drawBitmap(fish, null, rect_fish, paint)
     }
 
     fun updateRect(newRect: RectF) {
         rect_1.set(newRect)
         rect_2.set(newRect)
+        rect_fish.set(newRect)
         invalidate()
     }
 }
