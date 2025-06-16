@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -14,13 +15,12 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     private var score: Long = 0
-    var inc: Long = 1
 
-    private lateinit var canva: View
     private lateinit var text_score: TextView
 
     private lateinit var shared: SharedPreferences
     private lateinit var sharedEditor: SharedPreferences.Editor
+    private lateinit var gameView: GameView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,8 @@ class MainActivity : AppCompatActivity() {
         load()
 
         text_score = findViewById(R.id.text_score)
-
-        //TODO:canva.setOnClickListener()
+        gameView = findViewById(R.id.gameView)
     }
-
 
 
     private fun save(){
@@ -50,5 +48,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun load(){
         score = shared.getLong("score", 0)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
+            gameView.isTouch = true
+        } else if (event?.action == MotionEvent.ACTION_UP) {
+            gameView.isTouch = false
+        }
+        return super.onTouchEvent(event)
     }
 }
