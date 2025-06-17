@@ -22,6 +22,7 @@ class Obstacle {
             bitmaps = arrayOf(
                 BitmapFactory.decodeResource(context.resources, R.drawable.let_1),
                 BitmapFactory.decodeResource(context.resources, R.drawable.let_2),
+                BitmapFactory.decodeResource(context.resources, R.drawable.let_3),
             )
         }
     }
