@@ -12,9 +12,9 @@ import com.example.skyfish.R
 class Fish {
     companion object {
         lateinit var bitmap: Bitmap
-        val WIDTH = 200f
-        val HEIGHT = 140f
-        val LEFT = 40f
+        val WIDTH = 0.3f
+        val HEIGHT = 0.34f
+        val LEFT = 0.1f
         val paint = Paint()
         val SPEED = 0.5f        // Доля экрана в секунду
 
@@ -32,7 +32,10 @@ class Fish {
     }
 
     fun GetRectF() : RectF {
-        return RectF(LEFT, y - HEIGHT / 2f, LEFT + WIDTH, y + HEIGHT / 2f)
+        return RectF(heightScreen!! * LEFT,
+            y - heightScreen!! * HEIGHT / 2f,
+            LEFT + heightScreen!! * WIDTH,
+            y + HEIGHT / 2f)
     }
 
     public fun draw(canvas: Canvas) {
@@ -46,7 +49,7 @@ class Fish {
         } else {
             newY += heightScreen!! * SPEED / Config.FPS
         }
-        if (newY - HEIGHT / 2f < 0 || newY + HEIGHT / 2f > heightScreen!!)
+        if (newY - heightScreen!! * HEIGHT / 2f < 0 || newY + HEIGHT / 2f > heightScreen!!)
             return
         y = newY
     }

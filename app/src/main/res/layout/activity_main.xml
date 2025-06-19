@@ -32,7 +32,7 @@
         android:id="@+id/text_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/score_place_gor"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="@dimen/score_place_vert"
         android:fontFamily="sans-serif"
         android:text="0"
