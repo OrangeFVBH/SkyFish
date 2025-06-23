@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import androidx.core.graphics.scale
 import com.example.skyfish.Config
 import com.example.skyfish.R
 
@@ -23,22 +24,26 @@ class Fish {
         }
     }
 
+    val paint = Paint()
     var y = 0f
     var heightScreen: Float? = null
 
     constructor(heightScreen: Float) {
         this.heightScreen = heightScreen
         y = heightScreen / 2f
+        bitmap = bitmap.scale(GetRectF().width().toInt(), GetRectF().height().toInt())
     }
 
-    public fun GetRectF() : RectF {
-        return RectF(heightScreen!! * LEFT,
+    public fun GetRectF(): RectF {
+        return RectF(
+            heightScreen!! * LEFT,
             y - heightScreen!! * HEIGHT / 2f,
             LEFT + heightScreen!! * WIDTH,
-            y + HEIGHT / 2f)
+            y + HEIGHT / 2f
+        )
     }
 
-    public fun GetCollisionRectF() : RectF {
+    public fun GetCollisionRectF(): RectF {
         val r = GetRectF()
         r.set(
             r.left,
@@ -50,7 +55,9 @@ class Fish {
     }
 
     public fun draw(canvas: Canvas) {
-        canvas.drawBitmap(bitmap, null, GetRectF(), paint)
+        if (Config.SHOW_HITBOX)
+            canvas.drawRect(GetCollisionRectF(), paint)
+        canvas.drawBitmap(bitmap, GetRectF().left, GetRectF().top, null)
     }
 
     public fun update(isUp: Boolean = false) {

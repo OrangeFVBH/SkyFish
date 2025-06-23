@@ -7,7 +7,6 @@ import android.icu.util.Calendar
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import com.example.skyfish.sprites.Fish
 import com.example.skyfish.sprites.Obstacle
 import com.example.skyfish.sprites.ObstaclePosition
@@ -48,14 +47,16 @@ class GameView : View {
     private var lastObstacleTime: Long = 0;
 
     private val OBSTACLE_DELAY: Long = 1500;
+    private var isRunning: Boolean = false
 
     @SuppressLint("DrawAllocation")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         Fish.load(context)
         Obstacle.load(context)
         fish = Fish(height.toFloat())
+        isRunning = true
         jobFPS = MainScope().launch {
-            while(true) {
+            while(isRunning) {
                 if (checkCollision())
                     fall()
                 generateObstacles()
@@ -111,6 +112,7 @@ class GameView : View {
     }
 
     private fun fall() {
+        isRunning = false
         jobFPS?.cancel()
         (context as MainActivity).fallMessage.visibility = VISIBLE
     }

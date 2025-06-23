@@ -7,15 +7,16 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
+import androidx.core.graphics.scale
 import com.example.skyfish.Config
 import com.example.skyfish.R
 
 class Obstacle {
     companion object {
+        val paint = Paint()
         lateinit var bitmaps: Array<Bitmap>
         lateinit var bitmapsRotated: Array<Bitmap>
 
-        val paint = Paint()
         val random = java.util.Random()
 
         fun load(context: Context) {
@@ -60,6 +61,7 @@ class Obstacle {
         } else {
             bitmap = bitmaps[n]
         }
+        bitmap = bitmap.scale(GetRectF().width().toInt(), GetRectF().height().toInt())
     }
 
     fun GetRectF() : RectF {
@@ -71,14 +73,16 @@ class Obstacle {
         r.set(
             r.left + r.width() * 0.3f,
             r.top,
-            r.right,
-            r.bottom - r.width() * 0.3f
+            r.right - r.width() * 0.3f,
+            r.bottom
         )
         return r
     }
 
     public fun draw(canvas: Canvas) {
-        canvas.drawBitmap(bitmap, null, GetRectF(), paint)
+        if (Config.SHOW_HITBOX)
+            canvas.drawRect(GetCollisionRectF(), paint)
+        canvas.drawBitmap(bitmap, GetRectF().left, GetRectF().top, null)
     }
 
     public fun isOut() : Boolean {
