@@ -1,12 +1,11 @@
 package com.example.skyfish
 
 import android.content.SharedPreferences
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.RectF
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +13,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
-    private var score: Long = 0
+    public var score: Long = 0
+        set(value) {
+            field = value
+            text_score?.text = value.toString()
+        }
 
-    private lateinit var text_score: TextView
+    private var text_score: TextView? = null
+    public lateinit var fallMessage: View
 
     private lateinit var shared: SharedPreferences
     private lateinit var sharedEditor: SharedPreferences.Editor
@@ -40,7 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         text_score = findViewById(R.id.text_score)
         gameView = findViewById(R.id.gameView)
+        fallMessage = findViewById(R.id.fallText)
+        fallMessage.visibility = INVISIBLE
     }
+
 
 
     private fun save(){
@@ -59,5 +66,10 @@ class MainActivity : AppCompatActivity() {
             gameView.isTouch = false
         }
         return super.onTouchEvent(event)
+    }
+
+    public fun ShowFallMessge() {
+        val fallView = findViewById<TextView>(R.id.fallText)
+        fallView.visibility = VISIBLE;
     }
 }

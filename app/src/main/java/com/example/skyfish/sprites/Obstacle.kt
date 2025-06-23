@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.RectF
+import com.example.skyfish.Config
 import com.example.skyfish.R
 
 class Obstacle {
@@ -14,7 +15,6 @@ class Obstacle {
         lateinit var bitmaps: Array<Bitmap>
         lateinit var bitmapsRotated: Array<Bitmap>
 
-        val WIDTH = 0.2f
         val paint = Paint()
         val random = java.util.Random()
 
@@ -39,6 +39,10 @@ class Obstacle {
     var x = 0f
     var bitmap: Bitmap
     var heightScreen: Float? = null
+    var WIDTH: Float = 0f
+        get() = 0.2f * heightScreen!!
+    var SPEED: Float = 0f
+        get() = 0.5f * heightScreen!! / Config.FPS
 
     constructor(
         heightScreen: Float,
@@ -59,8 +63,18 @@ class Obstacle {
     }
 
     fun GetRectF() : RectF {
-        return RectF(x, y, x + heightScreen!! * WIDTH,
-            y + h)
+        return RectF(x, y, x + WIDTH, y + h)
+    }
+
+    public fun GetCollisionRectF() : RectF {
+        val r = GetRectF()
+        r.set(
+            r.left + r.width() * 0.3f,
+            r.top,
+            r.right,
+            r.bottom - r.width() * 0.3f
+        )
+        return r
     }
 
     public fun draw(canvas: Canvas) {
@@ -68,10 +82,10 @@ class Obstacle {
     }
 
     public fun isOut() : Boolean {
-        return false
+        return x < -WIDTH
     }
 
     public fun update(isUp: Boolean = false) {
-
+        x -= SPEED
     }
 }

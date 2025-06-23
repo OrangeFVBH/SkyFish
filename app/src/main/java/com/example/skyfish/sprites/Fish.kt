@@ -16,7 +16,7 @@ class Fish {
         val HEIGHT = 0.34f
         val LEFT = 0.1f
         val paint = Paint()
-        val SPEED = 0.5f        // Доля экрана в секунду
+        val SPEED = 0.45f        // Доля экрана в секунду
 
         fun load(context: Context) {
             bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fish)
@@ -31,11 +31,22 @@ class Fish {
         y = heightScreen / 2f
     }
 
-    fun GetRectF() : RectF {
+    public fun GetRectF() : RectF {
         return RectF(heightScreen!! * LEFT,
             y - heightScreen!! * HEIGHT / 2f,
             LEFT + heightScreen!! * WIDTH,
             y + HEIGHT / 2f)
+    }
+
+    public fun GetCollisionRectF() : RectF {
+        val r = GetRectF()
+        r.set(
+            r.left,
+            r.top + r.height() * 0.2f,
+            r.right,
+            r.bottom - r.height() * 0.2f
+        )
+        return r
     }
 
     public fun draw(canvas: Canvas) {
